@@ -9,9 +9,15 @@
 }
 
 * { box-sizing: border-box; }
-body { background: #0b1018; color: var(--ui-text); font-family: Inter, "Segoe UI", Arial, sans-serif; font-size: 14px; }
+body { background: #0b1018; color: var(--ui-text); font-family: "Segoe UI", Arial, sans-serif; font-size: 14px; }
+body * { font-family: "Segoe UI", Arial, sans-serif; }
 button, input, select, textarea { font: inherit; }
 button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible { outline: 2px solid var(--ui-accent); outline-offset: 2px; }
+
+.search_bar.MuiFormControl-root { display: flex !important; width: calc(100% - 28px) !important; height: 48px !important; min-height: 48px !important; margin: 14px !important; }
+.search_bar .MuiInputBase-root, .search_bar .MuiOutlinedInput-root { width: 100% !important; height: 48px !important; min-height: 48px !important; padding: 0 12px !important; }
+.search_bar .MuiInputBase-input { height: 48px !important; min-height: 48px !important; padding: 0 !important; font-size: 14px !important; line-height: 48px !important; text-align: left !important; }
+.search_bar .MuiInputLabel-root { display: none !important; }
 
 .object_list_main_container {
   width: clamp(292px, 24vw, 390px) !important;
@@ -19,7 +25,7 @@ button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-
   border-right: 1px solid var(--ui-line);
   z-index: 20;
 }
-.search_bar { position: relative !important; inset: auto !important; width: calc(100% - 28px) !important; height: 48px !important; margin: 14px !important; padding: 0 14px !important; border: 1px solid var(--ui-line) !important; border-radius: 12px !important; background: rgba(255,255,255,.06) !important; color: var(--ui-text) !important; font-size: 14px !important; }
+.search_bar { position: relative !important; inset: auto !important; width: calc(100% - 28px) !important; height: 48px !important; margin: 14px !important; color: var(--ui-text) !important; font-size: 14px !important; }
 .search_bar::placeholder { color: var(--ui-muted); }
 .object_list_filters { padding: 0 14px 10px !important; display: grid !important; grid-template-columns: 1fr 1fr; gap: 8px !important; }
 .object_list_filter_group { min-width: 0; display: flex; flex-direction: column; gap: 4px; }
@@ -47,7 +53,7 @@ button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-
 
 .transfer_models_data_main_settings_container, .transfer_models_data_main_content_container { right: 14px !important; left: auto !important; width: clamp(280px, 24vw, 390px) !important; padding: 10px !important; border: 1px solid var(--ui-line); border-radius: 14px; background: var(--ui-bg) !important; box-shadow: 0 14px 40px rgba(0,0,0,.25); z-index: 16; }
 .transfer_models_data_main_settings_container { top: 14px !important; height: auto !important; }
-.transfer_models_data_main_content_container { top: 142px !important; height: auto !important; max-height: 31vh; overflow-y: auto; }
+.transfer_models_data_main_content_container { top: 128px !important; height: 244px !important; max-height: 244px !important; overflow-y: auto; }
 .transfer_models_data_button, .transfer_models_data_code_button { min-height: 34px !important; border-radius: 8px !important; }
 .transfer_models_data_button_description, .transfer_models_data_code_button_description { font-size: 12px !important; }
 .transfer_models_data_dynamic_info, .transfer_models_data_file_download_info { color: var(--ui-muted); font-size: 12px !important; line-height: 1.3; }
@@ -60,10 +66,26 @@ button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-
 
 .structure_visibility_main_container { right: 14px !important; left: auto !important; width: clamp(280px, 24vw, 390px) !important; border: 1px solid var(--ui-line); border-radius: 12px; background: var(--ui-bg) !important; z-index: 15; }
 .structure_visibility_description { font-size: 13px !important; color: var(--ui-text); }
-.structure_visibility_main_container_edit_position { top: 390px !important; bottom: auto !important; }
-.structure_visibility_main_container_overview_position { top: 390px !important; bottom: auto !important; }
-.structure_visibility_main_container_raid_position { top: 390px !important; bottom: auto !important; }
+.structure_visibility_main_container_edit_position { top: 386px !important; bottom: auto !important; }
+.structure_visibility_main_container_overview_position { top: 386px !important; bottom: auto !important; }
+.structure_visibility_main_container_raid_position { top: 386px !important; bottom: auto !important; }
 .version { left: 14px !important; bottom: 8px !important; color: var(--ui-muted) !important; font-size: 11px !important; }
+
+.build_cost_title, .build_cost_misc_button, .upkeep_cost_title, .components_cost_title,
+.structure_visibility_description, .canvas_models_placing_settings_symmetry_container_description,
+.canvas_models_placing_settings_distance_units_description, .canvas_models_placing_settings_height_level_description,
+.canvas_models_placing_settings_pivot_controls_description { text-transform: none; font-weight: 700 !important; }
+.settings_and_controls_segment_title, .settings_segment_type, .controls_segment_type,
+.transfer_models_data_button_description, .transfer_models_data_code_button_description { font-family: "Segoe UI", Arial, sans-serif !important; }
+.build_cost_content_description, .build_cost_content_amount, .object_list_entity_description { font-family: "Segoe UI", Arial, sans-serif !important; font-weight: 600 !important; }
+
+@media (min-width: 1200px) {
+  .transfer_models_data_main_settings_container { right: 14px !important; top: 12px !important; width: 390px !important; height: 104px !important; }
+  .transfer_models_data_main_content_container { right: 14px !important; top: 128px !important; width: 390px !important; height: 244px !important; }
+  .structure_visibility_main_container { right: 14px !important; width: 390px !important; height: 92px !important; }
+  .build_calculator_main_container { right: 14px !important; width: 390px !important; max-height: 43vh !important; }
+  .canvas_models_placing_settings_main_container { bottom: 14px !important; }
+}
 
 @media (max-width: 1100px) {
   .object_list_main_container { width: 260px !important; }

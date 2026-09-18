@@ -266,7 +266,7 @@ const TransferModelsData: React.FC<TransferModelsDataProps> = ({ canvas_models_d
               className={transfer_models_data_mode === "import" ? "transfer_models_data_button transfer_models_data_button_enabled" : "transfer_models_data_button transfer_models_data_button_disabled"} //prettier-ignore
               onClick={() => {HandleTransferModelsDataModeSwitch("import")}} //prettier-ignore
             >
-              <div className="transfer_models_data_button_description">импорт</div>
+              <div className="transfer_models_data_button_description">Импорт</div>
               <div className="transfer_models_data_button_icon">
                 <FontAwesomeIcon icon={faDownload} style={{ width: "70%", height: "70%" }} />
               </div>
@@ -275,7 +275,7 @@ const TransferModelsData: React.FC<TransferModelsDataProps> = ({ canvas_models_d
               className={transfer_models_data_mode === "export" ? "transfer_models_data_button transfer_models_data_button_enabled" : "transfer_models_data_button transfer_models_data_button_disabled"} //prettier-ignore
               onClick={() => {HandleTransferModelsDataModeSwitch("export")}} //prettier-ignore
             >
-              <div className="transfer_models_data_button_description">экспорт</div>
+              <div className="transfer_models_data_button_description">Экспорт</div>
               <div className="transfer_models_data_button_icon">
                 <FontAwesomeIcon icon={faUpload} style={{ width: "70%", height: "70%" }} />
               </div>
@@ -376,7 +376,7 @@ const TransferModelsData: React.FC<TransferModelsDataProps> = ({ canvas_models_d
                 onClick={() => {Base64DataCompression("code")}} // prettier-ignore
                 className={enable_base_placing ? "transfer_models_data_generate_base_code_button transfer_models_data_generate_base_code_button_enabled" : "transfer_models_data_generate_base_code_button transfer_models_data_generate_base_code_button_disabled"} //prettier-ignore
               >
-                сгенерировать JSON базы
+                Сгенерировать JSON базы
               </div>
             </div>
 

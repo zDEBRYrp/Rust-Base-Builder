@@ -455,11 +455,11 @@ export default function ResourceCounter() {
     <>
       <div className="build_calculator_main_container">
         <section className="build_cost_main_container">
-          <h2 className="build_cost_title">стоимость строительства</h2>
+          <h2 className="build_cost_title">Стоимость строительства</h2>
           <h2 className="build_cost_misc_button">
             <label>
-              <input type="checkbox" checked={count_miscs_cost} onChange={HandleMiscCostState} />
-              учитывать предметы (шкаф, верстак, ящики, печи…)
+            <input type="checkbox" checked={count_miscs_cost} onChange={HandleMiscCostState} />
+            Учитывать предметы (шкаф, верстак, ящики, печи…)
             </label>
           </h2>
 
@@ -473,7 +473,7 @@ export default function ResourceCounter() {
 
         <section className="upkeep_cost_main_container">
           <h2 className="upkeep_cost_title">
-            содержание / расход шкафа за {upkeepIntervalLabel} {(total_upkeep_percentile_rampup * 100).toFixed(2)}%
+            Содержание / расход шкафа за {upkeepIntervalLabel} {(total_upkeep_percentile_rampup * 100).toFixed(2)}%
           </h2>
 
           <div className="upkeep_interval_control">
@@ -517,7 +517,7 @@ export default function ResourceCounter() {
         </section>
 
         <section className="component_cost_content">
-          <h2 className="components_cost_title">стоимость компонентов</h2>
+          <h2 className="components_cost_title">Стоимость компонентов</h2>
 
           <div className="components_cost_content_container">
             {CreateBuildCostSegment(scrapThumbnail, "скрап", Number(components_cost[0].scrap))}

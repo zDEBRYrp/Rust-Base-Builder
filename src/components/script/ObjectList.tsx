@@ -102,14 +102,14 @@ const SearchBarField = styled(TextField)({
   },
   "& input": {
     color: "#bbbbbb",
-    height: "30%",
+    height: "100%",
     boxSizing: "border-box",
-    fontSize: "calc(0.7vw + 0.4vh)",
+    fontSize: "14px",
     textAlign: "center",
   },
   "& .MuiInputBase-input": {
-    height: "30%",
-    fontSize: "calc(0.7vw + 0.4vh)",
+    height: "100%",
+    fontSize: "14px",
     overflow: "hidden",
     whiteSpace: "nowrap",
     textOverflow: "ellipsis",
@@ -121,7 +121,7 @@ const SearchBarField = styled(TextField)({
     borderBottomColor: "#ffcea6",
   },
   "& .MuiOutlinedInput-root": {
-    height: "30%",
+    height: "48px",
     "& fieldset": {
       borderColor: "white",
     },
@@ -141,7 +141,7 @@ interface SearchBarProps {
 
 const SearchBar: React.FC<SearchBarProps> = ({ value, onChange }) => {
   return (
-    <SearchBarField className="search_bar" label="Поиск объекта..." type="search" value={value} onChange={onChange} />
+    <SearchBarField className="search_bar" variant="outlined" label={undefined} placeholder="Поиск объекта..." aria-label="Поиск объекта" type="search" value={value} onChange={onChange} />
   );
 };
 

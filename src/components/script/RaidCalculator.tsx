@@ -935,7 +935,7 @@ export default function RaidCalculator() {
           {/* prettier-ignore */}
           <FontAwesomeIcon icon={faArrowsRotate} style={{ width: "75%", height: "75%", color: reset_raid_hover ? "#fdc89d" : "#a8a8a8" }}/>
         </div>
-        <div className="reset_raid_description">сбросить рейд</div>
+        <div className="reset_raid_description">Сбросить рейд</div>
       </div>
     </>
   );

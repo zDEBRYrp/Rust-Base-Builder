@@ -28,9 +28,10 @@ export function ruLabel(value: string) {
   if (exactTranslations[normalized]) return exactTranslations[normalized];
   const translated = value.replace(/found\./gi, "foundation").replace(/L[- ]shape/gi, "Г-образная форма").replace(/U[- ]shape/gi, "П-образная форма")
     .split(/([ ()/.]+)/).map((part) => wordTranslations[part.toLowerCase()] ?? part).join("");
-  return translated.replace(/каменный (стена|крыша|дверь|окно)/g, "каменная $1")
+  const result = translated.replace(/каменный (стена|крыша|дверь|окно)/g, "каменная $1")
     .replace(/металлический (стена|крыша|дверь|окно|лестница)/g, "металлическая $1")
     .replace(/каменный лестница/g, "каменная лестница");
+  return result.charAt(0).toUpperCase() + result.slice(1);
 }
 
 export function ruWords(value: string) {

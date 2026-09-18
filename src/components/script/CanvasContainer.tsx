@@ -1358,7 +1358,7 @@ export default function CanvasContainer() {
           >
             <FontAwesomeIcon icon={faFloppyDisk} style={{ width: "70%", height: "70%" }} />
           </button>
-          <span className="local_storage_button_text">сохранить</span>
+          <span className="local_storage_button_text">Сохранить</span>
         </div>
 
         <div className="local_storage_save_button_container">
@@ -1371,7 +1371,7 @@ export default function CanvasContainer() {
           >
             <FontAwesomeIcon icon={faTrashCan} style={{ width: "65%", height: "60%" }} />
           </button>
-          <span className="local_storage_button_text">удалить</span>
+          <span className="local_storage_button_text">Удалить</span>
         </div>
       </div>
 
@@ -1398,7 +1398,7 @@ export default function CanvasContainer() {
             >
               <FontAwesomeIcon icon={faDumpster} style={{ width: "80%", height: "80%" }} />
             </button>
-            <span className="delete_all_canvas_models_button_description">удалить все объекты</span>
+            <span className="delete_all_canvas_models_button_description">Удалить все объекты</span>
           </div>
         </div>
       )}

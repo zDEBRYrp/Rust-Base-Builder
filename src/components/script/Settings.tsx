@@ -100,7 +100,7 @@ const Settings = () => {
                 : "settings_element_buttons settings_element_buttons_disable settings_element_buttons_left"
             }
           >
-            включено
+            Включено
           </div>
           <div
            onClick={() => handleToggleSwitch(toggle_setting, false)}
@@ -110,7 +110,7 @@ const Settings = () => {
                 : "settings_element_buttons settings_element_buttons_disable settings_element_buttons_right"
             }
           >
-            выключено
+            Выключено
           </div>
         </div>
       </div>
@@ -158,14 +158,14 @@ const Settings = () => {
           <button className="settings_main_containter_button" onClick={() => {SettingsControlsButtonClick("settings")}}>
           <img src={!settings_button_click ? settings_a_Thumbnail : settings_b_Thumbnail} style={{ width: '75%', height: '75%', objectFit: 'contain' }} alt="Settings button thumbnail" className="settings_button_thumbnail"/>
           </button>
-          <span className="settings_main_containter_description">настройки</span>
+          <span className="settings_main_containter_description">Настройки</span>
         </div>
 
         <div className="controls_main_containter">
           <button className="controls_main_containter_button" onClick={() => {SettingsControlsButtonClick("controls")}}>
           <img src={!controls_button_click ? controls_a_Thumbnail : controls_b_Thumbnail} alt="Controls button thumbnail" className="controls_button_thumbnail"/>
           </button>
-          <span className="controls_main_containter_description">управление</span>
+          <span className="controls_main_containter_description">Управление</span>
         </div>
       </div>
 

@@ -61,7 +61,7 @@ const Toolbar = () => {
               filter: page_mode === "overview" ? "grayscale(0%)" : "grayscale(100%)",
             }}
           />
-          <span className="toolbar_container_button_description">обзор</span>
+          <span className="toolbar_container_button_description">Обзор</span>
         </button>
 
         <button
@@ -80,7 +80,7 @@ const Toolbar = () => {
             className="toolbar_container_button_thumbnail"
             style={{ filter: page_mode === "edit" ? "grayscale(0%)" : "grayscale(100%)" }}
           />
-          <span className="toolbar_container_button_description">строительство</span>
+          <span className="toolbar_container_button_description">Строительство</span>
         </button>
 
         <button
@@ -101,7 +101,7 @@ const Toolbar = () => {
               filter: page_mode === "raid" ? "grayscale(0%)" : "grayscale(100%)",
             }}
           />
-          <span className="toolbar_container_button_description">рейд</span>
+          <span className="toolbar_container_button_description">Рейд</span>
         </button>
       </nav>
     </>
