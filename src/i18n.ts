@@ -26,7 +26,7 @@ const wordTranslations: Record<string, string> = {
 export function ruLabel(value: string) {
   const normalized = value.trim().replace(/\s+/g, " ").toLowerCase();
   if (exactTranslations[normalized]) return exactTranslations[normalized];
-  const translated = value.replace(/L[- ]shape/gi, "Г-образная форма").replace(/U[- ]shape/gi, "П-образная форма")
+  const translated = value.replace(/found\./gi, "foundation").replace(/L[- ]shape/gi, "Г-образная форма").replace(/U[- ]shape/gi, "П-образная форма")
     .split(/([ ()/.]+)/).map((part) => wordTranslations[part.toLowerCase()] ?? part).join("");
   return translated.replace(/каменный (стена|крыша|дверь|окно)/g, "каменная $1")
     .replace(/металлический (стена|крыша|дверь|окно|лестница)/g, "металлическая $1")
@@ -41,7 +41,8 @@ export function ruUi(value: string) {
   const map: Record<string, string> = {
     "Export the base": "Экспорт базы", "Import the base": "Импорт базы", "Base imported": "База импортирована",
     "Base code applied": "Код базы применён", "File removed": "Файл удалён", "Base not imported / incorrect data": "База не импортирована: неверные данные",
-    "Base imported correctly!": "База успешно импортирована", "Base downloaded": "База скачана", "Base code generated": "Код базы создан",
+    "Base imported correctly!": "База успешно импортирована", "Imported base models": "Модели базы импортированы", "Base downloaded": "База скачана", "Base code generated": "Код базы создан",
+    "Base code copied to clipboard": "Код базы скопирован", "Base code cleared": "Поле кода очищено",
     "save": "сохранить", "delete": "удалить", "reset": "сбросить", "upgrade": "улучшить",
   };
   return map[value] ?? value;

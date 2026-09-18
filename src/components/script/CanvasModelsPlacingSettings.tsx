@@ -112,7 +112,7 @@ export default function CanvasModelsPlacingSettings() {
               5
             </div>
             {/* prettier-ignore */}
-            <input min={0} max={50} style={{ width: '32.5%' }} type="number" value={custom_unit_distance_number} onChange={HandleCustomUnitDistanceChange} onFocus={(e) => e.target.select()} placeholder="custom" className={unit_distance_number !== 0.125 && unit_distance_number !== 1 && unit_distance_number !== 5 ? "canvas_models_placing_settings_distance_units_button canvas_models_placing_settings_pivot_controls_button_enabled canvas_models_placing_settings_button_right" : "canvas_models_placing_settings_distance_units_button canvas_models_placing_settings_pivot_controls_button_disabled canvas_models_placing_settings_button_right"}/>
+            <input min={0} max={50} style={{ width: '32.5%' }} type="number" value={custom_unit_distance_number} onChange={HandleCustomUnitDistanceChange} onFocus={(e) => e.target.select()} placeholder="свой" className={unit_distance_number !== 0.125 && unit_distance_number !== 1 && unit_distance_number !== 5 ? "canvas_models_placing_settings_distance_units_button canvas_models_placing_settings_pivot_controls_button_enabled canvas_models_placing_settings_button_right" : "canvas_models_placing_settings_distance_units_button canvas_models_placing_settings_pivot_controls_button_disabled canvas_models_placing_settings_button_right"}/>
           </div>
         </div>
       </div>
