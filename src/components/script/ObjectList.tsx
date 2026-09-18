@@ -161,7 +161,7 @@ export default function ObjectList() {
 
   const [search_querry, set_search_querry] = useState<string>("");
   const [category, set_category] = useState<string>("all");
-  const [material, set_material] = useState<string>("all");
+  const [material, set_material] = useState<string>("stone");
 
   //[SectionNav] object list creator
   //Section ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ ↓ Object List Creator + Keywords + Interaction ↓ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -219,12 +219,20 @@ export default function ObjectList() {
     return keywords.filter(Boolean);
   };
 
+  const resolveModelType = (modelType: string) => {
+    if (modelType.startsWith("Stone") && material !== "stone") {
+      const prefix = material === "metal" ? "Metal" : material === "armored" ? "Armored" : "Stone";
+      return `${prefix}${modelType.slice("Stone".length)}`;
+    }
+    return modelType;
+  };
+
   const create_object_list_item = (name: string, thumbnail: string, keywords: string[], modelType: string) => ({
     name,
     thumbnail,
     keywords,
     onClick: () => {
-      dispatch(set_model_type_to_create(modelType));
+      dispatch(set_model_type_to_create(resolveModelType(modelType)));
     },
   });
 
@@ -329,12 +337,18 @@ export default function ObjectList() {
     create_object_list_item("vending machine", woodStorageBoxThumbnail, object_list_keywords("vending", "machine", "shop", ""), "VendingMachine"), // prettier-ignore
   ];
 
-  const filtered_object_list = object_list.filter((item) => {
+  const selectableObjectList = object_list.filter((item) => {
+    // Строительные формы показываем один раз. Ресурс выбирается отдельным контролом ниже.
+    // Двери, окна, шкафы и прочие предметы остаются отдельными объектами.
+    return item.name.startsWith("stone ") || !/^(metal|armored) /.test(item.name);
+  });
+
+  const filtered_object_list = selectableObjectList.filter((item) => {
     const queryMatch = item.keywords.some((keyword) => keyword.includes(search_querry.toLowerCase()));
     const categoryMatch = category === "all" || item.keywords.includes(category) ||
       (category === "misc" && ["tool", "storage", "furnace", "workbench", "sleeping", "defense", "trap", "turret"].some((word) => item.keywords.includes(word))) ||
       (category === "window" && ["window", "embrasure"].some((word) => item.keywords.includes(word)));
-    const materialMatch = material === "all" || item.keywords.includes(material);
+    const materialMatch = true;
     return queryMatch && categoryMatch && materialMatch;
   });
 
@@ -402,25 +416,28 @@ export default function ObjectList() {
       >
         <SearchBar value={search_querry} onChange={(event: any) => set_search_querry(event.target.value)} />
         <div className="object_list_filters">
-          <select aria-label="Категория" value={category} onChange={(event) => set_category(event.target.value)}>
-            <option value="all">Все категории</option>
-            <option value="foundation">Фундаменты</option>
-            <option value="wall">Стены</option>
-            <option value="floor">Полы</option>
-            <option value="roof">Крыши</option>
-            <option value="door">Двери</option>
-            <option value="window">Окна и бойницы</option>
-            <option value="stairs">Лестницы</option>
-            <option value="misc">Модули и предметы</option>
-          </select>
-          <select aria-label="Материал" value={material} onChange={(event) => set_material(event.target.value)}>
-            <option value="all">Все материалы</option>
+          <div className="object_list_filter_group">
+            <span>Категория</span>
+            <select aria-label="Категория" value={category} onChange={(event) => set_category(event.target.value)}>
+              <option value="all">Все категории</option>
+              <option value="foundation">Фундаменты</option>
+              <option value="wall">Стены</option>
+              <option value="floor">Полы</option>
+              <option value="roof">Крыши</option>
+              <option value="door">Двери</option>
+              <option value="window">Окна и бойницы</option>
+              <option value="stairs">Лестницы</option>
+              <option value="misc">Модули и предметы</option>
+            </select>
+          </div>
+          <div className="object_list_filter_group">
+            <span>Ресурс</span>
+            <select aria-label="Ресурс постройки" value={material} onChange={(event) => set_material(event.target.value)}>
             <option value="stone">Камень</option>
             <option value="metal">Металл</option>
             <option value="armored">ВМК</option>
-            <option value="wood" disabled>Дерево (модели ещё не добавлены)</option>
-            <option value="straw" disabled>Солома (модели ещё не добавлены)</option>
-          </select>
+            </select>
+          </div>
         </div>
         <div className="object_list">
           {filtered_object_list.map((item, index) => (
@@ -437,7 +454,7 @@ export default function ObjectList() {
                 src={item.thumbnail}
                 alt={`${item.name} thumbnail`}
               />
-              <span className="object_list_entity_description">{ruLabel(item.name)}</span>
+                <span className="object_list_entity_description">{ruLabel(item.name.replace(/^stone /, ""))}</span>
             </button>
           ))}
         </div>
