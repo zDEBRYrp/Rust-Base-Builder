@@ -101,3 +101,40 @@ button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-
   .transfer_models_data_main_content_container, .structure_visibility_main_container { display: none; }
   .canvas_models_placing_settings_main_container { width: calc(100vw - 20px) !important; bottom: 39vh !important; }
 }
+
+/* Edit mode uses content-driven rows. The legacy percentage heights are too
+   fragile for Russian labels and fullscreen viewport sizes. */
+@media (min-width: 761px) {
+  .transfer_models_data_main_settings_container { display: grid !important; grid-template-rows: 24px 4px 1fr; gap: 6px; }
+  .transfer_models_data_dynamic_info { height: auto !important; min-height: 24px; font-size: 12px !important; border-radius: 7px; }
+  .transfer_models_data_progress_bar { height: 4px !important; min-height: 4px; }
+  .transfer_models_data_type_buttons_container { height: auto !important; min-height: 0; display: grid !important; grid-template-rows: 1fr 1fr; gap: 6px; }
+  .transfer_models_data_type_buttons_container_row { height: auto !important; min-height: 0; display: grid !important; grid-template-columns: 1fr 1fr; gap: 6px; }
+  .transfer_models_data_button { width: auto !important; height: auto !important; min-height: 28px; border-radius: 8px !important; font-size: 12px !important; }
+
+  .transfer_models_data_main_content_container { display: flex !important; flex-direction: column !important; justify-content: flex-start !important; align-items: stretch !important; gap: 7px; }
+  .transfer_models_data_main_content_container > * { flex: 0 0 auto; }
+  .transfer_models_data_generate_base_code_container { width: 100% !important; height: 30px !important; min-height: 30px; }
+  .transfer_models_data_generate_base_code_button { width: 78% !important; height: 30px !important; min-height: 30px; font-size: 12px !important; }
+  .transfer_models_data_import_via_code_container { width: 100% !important; height: 86px !important; min-height: 86px; }
+  .transfer_models_data_import_via_code_container_input { width: 92% !important; height: 86px !important; min-height: 86px; padding: 8px; font-size: 12px !important; line-height: 1.3; text-align: left; resize: none; border-radius: 8px; }
+  .transfer_models_data_file_download_info { width: 100% !important; height: auto !important; min-height: 34px; font-size: 11px !important; line-height: 1.25; }
+  .transfer_models_data_code_buttons_container { width: 100% !important; height: 34px !important; min-height: 34px; gap: 8px; }
+  .transfer_models_data_code_button { width: auto !important; flex: 1; height: 34px !important; min-height: 34px; }
+  .transfer_models_data_code_button_description { font-size: 12px !important; }
+  .transfer_models_data_base_place_button_container { height: 34px !important; min-height: 34px; }
+  .transfer_models_data_base_place_button { height: 30px !important; min-height: 30px; font-size: 12px !important; }
+
+  .build_calculator_main_container { display: grid !important; grid-template-rows: auto auto auto; align-items: stretch; }
+  .build_cost_main_container { height: auto !important; min-height: 164px; display: grid !important; grid-template-rows: auto auto 88px; }
+  .upkeep_cost_main_container { height: auto !important; min-height: 170px; display: grid !important; grid-template-rows: auto auto 88px; }
+  .component_cost_content { height: auto !important; min-height: 124px; display: grid !important; grid-template-rows: auto 88px; }
+  .build_cost_content_container, .upkeep_cost_content_container, .components_cost_content_container { height: 88px !important; min-height: 88px; }
+  .build_cost_title, .build_cost_misc_button, .upkeep_cost_title, .components_cost_title { min-height: 34px !important; height: auto !important; line-height: 1.2 !important; padding: 8px 10px !important; }
+
+  .canvas_models_placing_settings_main_container { height: 86px !important; padding: 8px !important; display: grid !important; grid-template-rows: 1fr 1fr; gap: 6px; }
+  .canvas_models_placing_settings_content_row { height: auto !important; min-height: 0; }
+  .canvas_models_placing_settings_symmetry_container_description, .canvas_models_placing_settings_distance_units_description, .canvas_models_placing_settings_height_level_description, .canvas_models_placing_settings_pivot_controls_description { height: 18px !important; min-height: 18px; line-height: 18px; }
+  .canvas_models_placing_settings_symmetry_buttons_container, .canvas_models_placing_settings_distance_units_buttons_container, .canvas_models_placing_settings_height_level_buttons_container, .canvas_models_placing_settings_pivot_controls_buttons_container { height: 26px !important; min-height: 26px; }
+  .canvas_models_placing_settings_symmetry_button, .canvas_models_placing_settings_distance_units_button, .canvas_models_placing_settings_height_level_button, .canvas_models_placing_settings_pivot_controls_button { height: 26px !important; min-height: 26px; font-size: 12px !important; }
+}
