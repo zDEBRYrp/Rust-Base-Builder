@@ -55,13 +55,13 @@ const Toolbar = () => {
         >
           <img
             src={overviewToolbarThumbnail}
-            alt="Overview mode thumbnail"
+            alt="Миниатюра режима обзора"
             className="toolbar_container_button_thumbnail"
             style={{
               filter: page_mode === "overview" ? "grayscale(0%)" : "grayscale(100%)",
             }}
           />
-          <span className="toolbar_container_button_description">overview</span>
+          <span className="toolbar_container_button_description">обзор</span>
         </button>
 
         <button
@@ -76,11 +76,11 @@ const Toolbar = () => {
         >
           <img
             src={editToolbarThumbnail}
-            alt="Edit mode thumbnail"
+            alt="Миниатюра режима строительства"
             className="toolbar_container_button_thumbnail"
             style={{ filter: page_mode === "edit" ? "grayscale(0%)" : "grayscale(100%)" }}
           />
-          <span className="toolbar_container_button_description">edit</span>
+          <span className="toolbar_container_button_description">строительство</span>
         </button>
 
         <button
@@ -95,13 +95,13 @@ const Toolbar = () => {
         >
           <img
             src={raidToolbarThumbnail}
-            alt="Raid mode thumbnail"
+            alt="Миниатюра режима рейда"
             className="toolbar_container_button_thumbnail"
             style={{
               filter: page_mode === "raid" ? "grayscale(0%)" : "grayscale(100%)",
             }}
           />
-          <span className="toolbar_container_button_description">raid</span>
+          <span className="toolbar_container_button_description">рейд</span>
         </button>
       </nav>
     </>

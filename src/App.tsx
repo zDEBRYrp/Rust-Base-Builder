@@ -37,6 +37,7 @@ import "./components/styles/mobile_alert.css";
 import "./components/styles/prebuilt_bases_data.css";
 import "./components/styles/transfer_models_data.css";
 import "./components/styles/canvas_models_placing_settings.css";
+import "./components/styles/adaptive_layout.css";
 
 function App() {
   const page_mode = useSelector((state: RootState) => state.pageMode.page_mode);
@@ -69,7 +70,7 @@ function App() {
       <Version />
       <PrebuiltBasesDesign />
       <HardwareParameters />
-      <Loader {...loaderStyles} dataInterpolation={(p) => `Loading ${p.toFixed(0)}%`} />
+      <Loader {...loaderStyles} dataInterpolation={(p) => `Загрузка ${p.toFixed(0)}%`} />
       <HardwareParameters />
       {page_mode === "edit" && <CanvasModelsPlacingSettings />}
     </>

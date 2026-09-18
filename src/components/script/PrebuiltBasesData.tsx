@@ -1174,7 +1174,7 @@ export default function PrebuiltBasesDesign() {
         onMouseEnter={() => {set_add_prebuild_base_button_hover(true)}} //prettier-ignore
         onMouseLeave={() => {set_add_prebuild_base_button_hover(false)}} //prettier-ignore
       >
-        <span>Add prebuilt base</span>
+        <span>Добавить готовую базу</span>
         <div className="prebuilt_bases_design_icons_container">
           <FontAwesomeIcon icon={faHouse} size="xl" />
           {/* prettier-ignore */}

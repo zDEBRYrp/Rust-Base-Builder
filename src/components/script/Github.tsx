@@ -14,8 +14,8 @@ export default function Github() {
     <div className="github" onClick={GithubMouseClick}>
       <FontAwesomeIcon icon={faGithub} style={{ width: "50%", height: "50%" }} />
       <span className="github_text">
-        Tutorial
-        <br /> More info
+        Инструкция
+        <br /> Подробнее
       </span>
     </div>
   );

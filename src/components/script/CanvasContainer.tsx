@@ -1358,7 +1358,7 @@ export default function CanvasContainer() {
           >
             <FontAwesomeIcon icon={faFloppyDisk} style={{ width: "70%", height: "70%" }} />
           </button>
-          <span className="local_storage_button_text">save</span>
+          <span className="local_storage_button_text">сохранить</span>
         </div>
 
         <div className="local_storage_save_button_container">
@@ -1371,7 +1371,7 @@ export default function CanvasContainer() {
           >
             <FontAwesomeIcon icon={faTrashCan} style={{ width: "65%", height: "60%" }} />
           </button>
-          <span className="local_storage_button_text">delete</span>
+          <span className="local_storage_button_text">удалить</span>
         </div>
       </div>
 
@@ -1398,7 +1398,7 @@ export default function CanvasContainer() {
             >
               <FontAwesomeIcon icon={faDumpster} style={{ width: "80%", height: "80%" }} />
             </button>
-            <span className="delete_all_canvas_models_button_description">delete all models</span>
+            <span className="delete_all_canvas_models_button_description">удалить все объекты</span>
           </div>
         </div>
       )}
@@ -1406,11 +1406,11 @@ export default function CanvasContainer() {
       {display_remove_all_models_question && (
         <div className="delete_all_models_question_main_container">
           {/*prettier-ignore*/}
-          <div className="delete_all_models_question_description">are you sure you want to delete all the objects?</div>
+          <div className="delete_all_models_question_description">Удалить все объекты?</div>
           {/*prettier-ignore*/}
           <div className="delete_all_models_answer_container">
-            <div onClick={() => {DeleteAllObjects(), set_display_remove_all_models_question(false)}} className="delete_all_models_answer_button">yes</div>
-            <div onClick={() => {set_display_remove_all_models_question(false); playSound("menu_sound")}} className="delete_all_models_answer_button">no</div>
+            <div onClick={() => {DeleteAllObjects(), set_display_remove_all_models_question(false)}} className="delete_all_models_answer_button">да</div>
+            <div onClick={() => {set_display_remove_all_models_question(false); playSound("menu_sound")}} className="delete_all_models_answer_button">нет</div>
           </div>
         </div>
       )}
@@ -1418,12 +1418,12 @@ export default function CanvasContainer() {
       {display_remove_saved_data_question && (
         <div className="delete_saved_data_question_main_container">
           {/*prettier-ignore*/}
-          <div className="delete_saved_data_question_description">are you sure you want to delete the saved data? This process is irreversible.</div>
+          <div className="delete_saved_data_question_description">Удалить сохранённую базу? Это действие нельзя отменить.</div>
           {/*prettier-ignore*/}
           <div className="delete_saved_data_answer_container">
             <div onClick={() => {set_display_remove_saved_data_question(false); DeleteCurrentBaseFromLocalStorage(); playSound("menu_sound");}} 
-              className="delete_saved_data_answer_button">yes</div>
-            <div onClick={() => {set_display_remove_saved_data_question(false); playSound("menu_sound")}} className="delete_saved_data_answer_button">no</div>
+              className="delete_saved_data_answer_button">да</div>
+            <div onClick={() => {set_display_remove_saved_data_question(false); playSound("menu_sound")}} className="delete_saved_data_answer_button">нет</div>
           </div>
         </div>
       )}

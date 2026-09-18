@@ -464,10 +464,10 @@ export default function ResourceCounter() {
           </h2>
 
           <div className="build_cost_content_container">
-            {CreateBuildCostSegment(woodThumbnail, "wood", Number(build_cost[0].wood) + Number(twig_upgrade_wood_cost))}
-            {CreateBuildCostSegment(stoneThumbnail, "stone", Number(build_cost[1].stone))}
-            {CreateBuildCostSegment(metalThumbnail, "metal", Number(build_cost[2].metal))}
-            {CreateBuildCostSegment(hqMetalThumbnail, "armored", Number(build_cost[3].armored))}
+            {CreateBuildCostSegment(woodThumbnail, "дерево", Number(build_cost[0].wood) + Number(twig_upgrade_wood_cost))}
+            {CreateBuildCostSegment(stoneThumbnail, "камень", Number(build_cost[1].stone))}
+            {CreateBuildCostSegment(metalThumbnail, "металл", Number(build_cost[2].metal))}
+            {CreateBuildCostSegment(hqMetalThumbnail, "ВМК", Number(build_cost[3].armored))}
           </div>
         </section>
 
@@ -520,10 +520,10 @@ export default function ResourceCounter() {
           <h2 className="components_cost_title">стоимость компонентов</h2>
 
           <div className="components_cost_content_container">
-            {CreateBuildCostSegment(scrapThumbnail, "scrap", Number(components_cost[0].scrap))}
-            {CreateBuildCostSegment(gearThumbnail, "gears", Number(components_cost[1].gear))}
-            {CreateBuildCostSegment(sewingKitThumbnail, "sewing kit", Number(components_cost[2].sewing_kit))}
-            {CreateBuildCostSegment(lqFuelThumbnail, "lq. fuel", Number(components_cost[3].lq_fuel))}
+            {CreateBuildCostSegment(scrapThumbnail, "скрап", Number(components_cost[0].scrap))}
+            {CreateBuildCostSegment(gearThumbnail, "шестерни", Number(components_cost[1].gear))}
+            {CreateBuildCostSegment(sewingKitThumbnail, "швейный набор", Number(components_cost[2].sewing_kit))}
+            {CreateBuildCostSegment(lqFuelThumbnail, "топливо НК", Number(components_cost[3].lq_fuel))}
           </div>
         </section>
       </div>

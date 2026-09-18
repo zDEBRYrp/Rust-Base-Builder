@@ -230,7 +230,7 @@ export default function CameraType() {
             camera_type === "camera_3d" ? "camera_reset_text reset_text_white" : "camera_reset_text reset_text_black"
           }
         >
-          reset
+          сбросить
         </div>
       </button>
     </>

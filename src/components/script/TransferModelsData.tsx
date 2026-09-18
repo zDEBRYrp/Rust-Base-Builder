@@ -10,6 +10,7 @@ import { AI_BASE_PROMPT, parseBaseDocument, stringifyBaseDocument } from "../../
 import ProgressBar from "react-bootstrap/ProgressBar";
 
 import { useAudioPlayer } from "./AudioPlayer.tsx";
+import { ruUi } from "../../i18n";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faCopy, faDownload, faEraser, faFile, faKeyboard, faUpload } from "@fortawesome/free-solid-svg-icons"; //prettier-ignore
@@ -255,7 +256,7 @@ const TransferModelsData: React.FC<TransferModelsDataProps> = ({ canvas_models_d
       <div className="transfer_models_data_main_settings_container">
         {/* prettier-ignore */}
         <div className="transfer_models_data_dynamic_info">
-          {loading_bar_info} {loading_bar_info === "Imported base models" && ` ${data_index}/${imported_base_data_length}`}
+          {ruUi(loading_bar_info)} {loading_bar_info === "Imported base models" && ` ${data_index}/${imported_base_data_length}`}
         </div>
         {/* prettier-ignore */}
         <ProgressBar className={!enable_base_placing ? "imported_data_progress_bar_inactive" : loading_bar_info === "Base not imported / incorrect data" ? "imported_data_progress_bar_invalid" : "imported_data_progress_bar"} striped now={enable_base_placing ? data_index : 1} max={enable_base_placing ? imported_base_data_length : 1} />
@@ -426,7 +427,7 @@ const TransferModelsData: React.FC<TransferModelsDataProps> = ({ canvas_models_d
             </div>
 
             <div className="transfer_models_data_file_download_info">
-              File not downloading = enable multiple file downloads in the browser (top-right corner)
+              Если файл не скачивается, разрешите несколько загрузок в настройках браузера.
             </div>
           </>
         )}

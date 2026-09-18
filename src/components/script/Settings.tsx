@@ -100,7 +100,7 @@ const Settings = () => {
                 : "settings_element_buttons settings_element_buttons_disable settings_element_buttons_left"
             }
           >
-            enabled
+            включено
           </div>
           <div
            onClick={() => handleToggleSwitch(toggle_setting, false)}
@@ -110,7 +110,7 @@ const Settings = () => {
                 : "settings_element_buttons settings_element_buttons_disable settings_element_buttons_right"
             }
           >
-            disabled
+            выключено
           </div>
         </div>
       </div>
@@ -158,74 +158,74 @@ const Settings = () => {
           <button className="settings_main_containter_button" onClick={() => {SettingsControlsButtonClick("settings")}}>
           <img src={!settings_button_click ? settings_a_Thumbnail : settings_b_Thumbnail} style={{ width: '75%', height: '75%', objectFit: 'contain' }} alt="Settings button thumbnail" className="settings_button_thumbnail"/>
           </button>
-          <span className="settings_main_containter_description">settings</span>
+          <span className="settings_main_containter_description">настройки</span>
         </div>
 
         <div className="controls_main_containter">
           <button className="controls_main_containter_button" onClick={() => {SettingsControlsButtonClick("controls")}}>
           <img src={!controls_button_click ? controls_a_Thumbnail : controls_b_Thumbnail} alt="Controls button thumbnail" className="controls_button_thumbnail"/>
           </button>
-          <span className="controls_main_containter_description">controls</span>
+          <span className="controls_main_containter_description">управление</span>
         </div>
       </div>
 
       {/* prettier-ignore */}
       <div className={settings_button_click ? "settings_container settings_container_displayed" : "settings_container settings_container_hidden"} style={{ height: performance_mode ? '65%' : '80%', }}>
 
-        {BuildSettingsAndControlsSegmentTitle("UI settings")}
-          {BuildSettingsSegments("display control hints:", enable_hints, set_enable_hints)}
-          {BuildSettingsSegments("display 2D | D3 cameras switch:", enable_cameras, set_enable_cameras)}
-          {BuildSettingsSegments("display structure visibility type switch:", enable_structures_visibility, set_enable_structures_visibility)}
-          {BuildSettingsSegments("display resource counter:", enable_resource_container, set_enable_resource_container)}
-          {BuildSettingsSegments("display mouse model controls:", model_transform_controls, set_enable_model_transform_controls)}
+        {BuildSettingsAndControlsSegmentTitle("Настройки интерфейса")}
+          {BuildSettingsSegments("подсказки управления:", enable_hints, set_enable_hints)}
+          {BuildSettingsSegments("переключатель 2D / 3D:", enable_cameras, set_enable_cameras)}
+          {BuildSettingsSegments("видимость объектов:", enable_structures_visibility, set_enable_structures_visibility)}
+          {BuildSettingsSegments("счётчик ресурсов:", enable_resource_container, set_enable_resource_container)}
+          {BuildSettingsSegments("панель управления объектом:", model_transform_controls, set_enable_model_transform_controls)}
 
-        {BuildSettingsAndControlsSegmentTitle("audio")}
-          {BuildSettingsSegments("audio:", audio, set_audio)}
+        {BuildSettingsAndControlsSegmentTitle("Звук")}
+          {BuildSettingsSegments("звук:", audio, set_audio)}
 
-        {BuildSettingsAndControlsSegmentTitle("performance | system")}
-          {BuildSettingsSegments("performance mode:", performance_mode, set_performance_mode)}
-          {BuildSettingsSegments("display performance monitor:", performance_monitor_state, set_performance_monitor_state)}
+        {BuildSettingsAndControlsSegmentTitle("Производительность")}
+          {BuildSettingsSegments("режим производительности:", performance_mode, set_performance_mode)}
+          {BuildSettingsSegments("монитор производительности:", performance_monitor_state, set_performance_monitor_state)}
 
 
         <div className="settings_segment_container">
-          <div className="settings_segment_type">3d camera fov:</div>
+          <div className="settings_segment_type">угол обзора 3D:</div>
           <ThemeProvider theme={camera_fov_slider_theme}>
             <Slider aria-label="Volume" value={camera_fov} min={60} max={120} step={10} marks={camera_fov_slider_marks} style={{ width: "40%" }} onChange={HandleCameraFovChange}/>
           </ThemeProvider>
         </div>
 
-        {BuildSettingsAndControlsSegmentTitle("postprocessing | visuals " + (performance_mode ? "(disabled in performance mode)" : ""))}
+        {BuildSettingsAndControlsSegmentTitle("Графика " + (performance_mode ? "(ограничена режимом производительности)" : ""))}
          {!performance_mode && (
-          <>{BuildSettingsSegments("model textures:", enable_model_textures, set_enable_model_textures)}
-          {BuildSettingsSegments("bloom:", bloom_state, set_bloom_state)}
-          {BuildSettingsSegments("better lighting:", better_lighting_state, set_better_lighting_state)}
-          {BuildSettingsSegments("SSAO (screen space ambient occlusion):", ssao_state, set_ssao_state)}
-          {BuildSettingsSegments("antialiasing:", antialiasing_state, set_antialiasing_state)}
+          <>{BuildSettingsSegments("текстуры моделей:", enable_model_textures, set_enable_model_textures)}
+          {BuildSettingsSegments("свечение:", bloom_state, set_bloom_state)}
+          {BuildSettingsSegments("улучшенное освещение:", better_lighting_state, set_better_lighting_state)}
+          {BuildSettingsSegments("SSAO (затенение окружающего пространства):", ssao_state, set_ssao_state)}
+          {BuildSettingsSegments("сглаживание:", antialiasing_state, set_antialiasing_state)}
           </>)}
       </div>
 
       {/* prettier-ignore */}
       <div className={controls_button_click ? "controls_container controls_container_displayed" : "controls_container controls_container_hidden"}>
           
-        {BuildSettingsAndControlsSegmentTitle("Mouse controls 3D mode")}
-          {BuildControlsSegments("MB1 | LMB (left mouse button)", "rotate camera")}
-          {BuildControlsSegments("MB2 | RMB (right mouse button)", "move camera")}
-          {BuildControlsSegments("Mouse wheel | scroll", "zoom in-out camera")}
+        {BuildSettingsAndControlsSegmentTitle("Мышь — 3D режим")}
+          {BuildControlsSegments("ЛКМ | MB1", "вращать камеру")}
+          {BuildControlsSegments("ПКМ | MB2", "перемещать камеру")}
+          {BuildControlsSegments("Колесо мыши", "приближать и отдалять")}
 
-        {BuildSettingsAndControlsSegmentTitle("Mouse controls 2D mode")}
-          {BuildControlsSegments(" MB1 | MB2 | LMB | RMB", "move camera")}
-          {BuildControlsSegments("Mouse wheel | scroll", "zoom in-out camera")}
+        {BuildSettingsAndControlsSegmentTitle("Мышь — 2D режим")}
+          {BuildControlsSegments("ЛКМ | ПКМ", "перемещать камеру")}
+          {BuildControlsSegments("Колесо мыши", "приближать и отдалять")}
         
-        {BuildSettingsAndControlsSegmentTitle("Keyboard controls ( when model is selected)")}
-          {BuildControlsSegments("W | ⇧", "move selected object forward")}
-          {BuildControlsSegments("D | ⇨", "move selected object right")}
-          {BuildControlsSegments("S | ⇩", "move selected object down")}
-          {BuildControlsSegments("A | ⇦", "move selected object left")}
-          {BuildControlsSegments("Q", "rotate selected object counter clockwise")}
-          {BuildControlsSegments("E", "rotate selected object clockwise")}
-          {BuildControlsSegments("SPACE", "move selected object up (height)")}
-          {BuildControlsSegments("CTRL", "move selected object down (height)")}
-          {BuildControlsSegments("DEL | BACKSPACE", "delete selected model")}
+        {BuildSettingsAndControlsSegmentTitle("Клавиатура — выбран объект")}
+          {BuildControlsSegments("W | ⇧", "двигать объект вперёд")}
+          {BuildControlsSegments("D | ⇨", "двигать объект вправо")}
+          {BuildControlsSegments("S | ⇩", "двигать объект вниз")}
+          {BuildControlsSegments("A | ⇦", "двигать объект влево")}
+          {BuildControlsSegments("Q", "вращать объект против часовой стрелки")}
+          {BuildControlsSegments("E", "вращать объект по часовой стрелке")}
+          {BuildControlsSegments("SPACE", "поднять объект по высоте")}
+          {BuildControlsSegments("CTRL", "опустить объект по высоте")}
+          {BuildControlsSegments("DEL | BACKSPACE", "удалить выбранный объект")}
       </div>
     </>
   );

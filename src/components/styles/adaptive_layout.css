@@ -1,0 +1,76 @@
+:root {
+  --ui-bg: rgba(13, 18, 27, 0.94);
+  --ui-bg-soft: rgba(25, 33, 46, 0.94);
+  --ui-line: rgba(255, 255, 255, 0.13);
+  --ui-text: #f1f4f8;
+  --ui-muted: #aab4c2;
+  --ui-accent: #f2a36e;
+  --ui-accent-soft: rgba(242, 163, 110, 0.2);
+}
+
+* { box-sizing: border-box; }
+body { background: #0b1018; color: var(--ui-text); font-family: Inter, "Segoe UI", Arial, sans-serif; font-size: 14px; }
+button, input, select, textarea { font: inherit; }
+button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible { outline: 2px solid var(--ui-accent); outline-offset: 2px; }
+
+.object_list_main_container {
+  width: clamp(292px, 24vw, 390px) !important;
+  background: linear-gradient(180deg, rgba(13, 18, 27, .98), rgba(13, 18, 27, .88)) !important;
+  border-right: 1px solid var(--ui-line);
+  z-index: 20;
+}
+.search_bar { position: relative !important; inset: auto !important; width: calc(100% - 28px) !important; height: 48px !important; margin: 14px !important; padding: 0 14px !important; border: 1px solid var(--ui-line) !important; border-radius: 12px !important; background: rgba(255,255,255,.06) !important; color: var(--ui-text) !important; font-size: 14px !important; }
+.search_bar::placeholder { color: var(--ui-muted); }
+.object_list_filters { padding: 0 14px 10px !important; }
+.object_list_filters select { min-width: 0; flex: 1; height: 34px; border: 1px solid var(--ui-line); border-radius: 8px; padding: 0 8px; background: var(--ui-bg-soft); color: var(--ui-text); }
+.object_list { top: 124px !important; left: 0 !important; width: 100% !important; height: calc(100% - 124px) !important; padding: 0 12px 18px !important; grid-template-columns: repeat(2, minmax(0, 1fr)) !important; grid-auto-rows: 142px !important; gap: 10px !important; overflow-y: auto !important; }
+.object_list_entity { height: 142px !important; border: 1px solid var(--ui-line); border-radius: 12px; overflow: hidden; background: rgba(255,255,255,.055); transition: border-color .15s, transform .15s, background .15s; }
+.object_list_entity:hover, .object_list_entity_selected { border-color: var(--ui-accent) !important; background: var(--ui-accent-soft) !important; transform: translateY(-1px); }
+.object_list_entity_thumbnail { width: 100% !important; height: 100px !important; object-fit: contain; background: rgba(255,255,255,.08); }
+.object_list_entity_description { width: 100% !important; height: 42px !important; padding: 5px 6px !important; color: var(--ui-text) !important; font-size: 11px !important; line-height: 1.15 !important; overflow-wrap: anywhere; background: rgba(5, 8, 13, .72) !important; }
+
+.toolbar_container { width: min(500px, 38vw) !important; height: 82px !important; left: 50% !important; top: 12px !important; transform: translateX(-50%); gap: 8px; z-index: 15; }
+.toolbar_container_button { border: 1px solid var(--ui-line) !important; border-radius: 14px !important; overflow: hidden; background: var(--ui-bg) !important; box-shadow: 0 10px 30px rgba(0,0,0,.2); }
+.toolbar_container_button_description { height: 28% !important; padding: 4px !important; font-size: 12px !important; color: var(--ui-text) !important; }
+
+.build_calculator_main_container { left: auto !important; right: 14px !important; top: auto !important; bottom: 14px !important; width: clamp(310px, 24vw, 390px) !important; height: auto !important; max-height: 54vh; overflow-y: auto; padding: 10px; gap: 10px; border: 1px solid var(--ui-line); border-radius: 16px; background: var(--ui-bg) !important; box-shadow: 0 14px 40px rgba(0,0,0,.28); z-index: 17; }
+.build_cost_main_container, .upkeep_cost_main_container, .component_cost_content { border: 1px solid var(--ui-line); border-radius: 12px; overflow: hidden; background: rgba(255,255,255,.045); }
+.build_cost_title, .build_cost_misc_button, .upkeep_cost_title, .components_cost_title { min-height: 32px !important; height: auto !important; padding: 8px 10px !important; margin: 0 !important; font-size: 13px !important; line-height: 1.25 !important; color: var(--ui-text) !important; background: rgba(255,255,255,.07); }
+.upkeep_interval_control { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; padding: 7px 10px; color: var(--ui-muted); }
+.upkeep_interval_control select, .custom_upkeep_interval input, .custom_upkeep_interval select { min-height: 30px; border: 1px solid var(--ui-line); border-radius: 7px; background: var(--ui-bg-soft); color: var(--ui-text); }
+.build_cost_content_container, .upkeep_cost_content_container, .components_cost_content_container { min-height: 84px; }
+.build_cost_content { min-height: 84px !important; border-right: 1px solid var(--ui-line); }
+.build_cost_content_thumbnail { height: 42px !important; width: 100% !important; object-fit: contain; }
+.build_cost_content_description, .build_cost_content_amount { font-size: 12px !important; line-height: 1.15 !important; }
+
+.transfer_models_data_main_settings_container, .transfer_models_data_main_content_container { right: 14px !important; left: auto !important; width: clamp(280px, 24vw, 390px) !important; padding: 10px !important; border: 1px solid var(--ui-line); border-radius: 14px; background: var(--ui-bg) !important; box-shadow: 0 14px 40px rgba(0,0,0,.25); z-index: 16; }
+.transfer_models_data_main_settings_container { top: 14px !important; height: auto !important; }
+.transfer_models_data_main_content_container { top: 142px !important; height: auto !important; max-height: 35vh; overflow-y: auto; }
+.transfer_models_data_button, .transfer_models_data_code_button { min-height: 34px !important; border-radius: 8px !important; }
+.transfer_models_data_button_description, .transfer_models_data_code_button_description { font-size: 12px !important; }
+.transfer_models_data_dynamic_info, .transfer_models_data_file_download_info { color: var(--ui-muted); font-size: 12px !important; line-height: 1.3; }
+.transfer_models_data_import_via_code_container_input, .transfer_models_data_custom_file_name_input { width: 100% !important; min-height: 68px; border: 1px solid var(--ui-line); border-radius: 8px; background: rgba(0,0,0,.25); color: var(--ui-text); }
+
+.canvas_models_placing_settings_main_container { left: 50% !important; bottom: 14px !important; top: auto !important; transform: translateX(-50%); width: min(430px, 40vw) !important; height: auto !important; padding: 10px !important; border: 1px solid var(--ui-line); border-radius: 14px; background: var(--ui-bg) !important; z-index: 14; }
+.canvas_models_placing_settings_content_row { gap: 10px; }
+.canvas_models_placing_settings_content_row > div { min-width: 0; flex: 1; }
+.canvas_models_placing_settings_symmetry_container_description, .canvas_models_placing_settings_distance_units_description, .canvas_models_placing_settings_height_level_description, .canvas_models_placing_settings_pivot_controls_description { color: var(--ui-muted); font-size: 12px !important; }
+
+.structure_visibility_main_container { right: 14px !important; left: auto !important; width: clamp(280px, 24vw, 390px) !important; border: 1px solid var(--ui-line); border-radius: 12px; background: var(--ui-bg) !important; z-index: 15; }
+.structure_visibility_description { font-size: 13px !important; color: var(--ui-text); }
+.version { left: 14px !important; bottom: 8px !important; color: var(--ui-muted) !important; font-size: 11px !important; }
+
+@media (max-width: 1100px) {
+  .object_list_main_container { width: 260px !important; }
+  .toolbar_container { width: 330px !important; }
+  .build_calculator_main_container, .transfer_models_data_main_settings_container, .transfer_models_data_main_content_container, .structure_visibility_main_container { width: 300px !important; }
+}
+@media (max-width: 760px) {
+  .object_list_main_container { width: 100vw !important; height: 38vh !important; }
+  .object_list { height: calc(100% - 124px) !important; }
+  .toolbar_container { top: 39vh !important; width: calc(100vw - 20px) !important; }
+  .build_calculator_main_container { right: 10px !important; bottom: 10px !important; width: calc(100vw - 20px) !important; max-height: 38vh; }
+  .transfer_models_data_main_settings_container { top: 48vh !important; right: 10px !important; width: calc(100vw - 20px) !important; }
+  .transfer_models_data_main_content_container, .structure_visibility_main_container { display: none; }
+  .canvas_models_placing_settings_main_container { width: calc(100vw - 20px) !important; bottom: 39vh !important; }
+}

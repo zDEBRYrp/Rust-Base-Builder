@@ -153,7 +153,7 @@ export function ModelComponentsCommonLogic() {
                   <div className="annotation_button_icons_container">
                     <FontAwesomeIcon icon={faTrashCanArrowUp} style={{ width: "1vw", height: "2vh", color: annotation_delete_button_hover ? "#ffd5b3" : "#bbbbbb"}} />
                   </div>
-                  <div className="annotation_button_description">delete</div>
+                    <div className="annotation_button_description">удалить</div>
                 </div>
             </div>
           </div>

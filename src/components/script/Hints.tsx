@@ -19,26 +19,26 @@ export default function Hints() {
       {camera_type === "camera_3d" && !object_selected && !model_cretion_state && (
         <div className="hint_default_3d">
           <div className="hint_part">
-            <span style={{ color: "#ffd5b3" }}>LMB | MB1</span> - rotate cam.
+            <span style={{ color: "#ffd5b3" }}>ЛКМ | MB1</span> — вращение камеры.
           </div>
 
           <div className="hint_part">
-            <span style={{ color: "#ffd5b3" }}>RMB | MB2</span> - move cam.
+            <span style={{ color: "#ffd5b3" }}>ПКМ | MB2</span> — перемещение камеры.
           </div>
 
           <div className="hint_part">
-            <span style={{ color: "#ffd5b3" }}>mouse scroll</span> - zoom
+            <span style={{ color: "#ffd5b3" }}>колесо мыши</span> — масштаб.
           </div>
         </div>
       )}
       {camera_type === "camera_2d" && !object_selected && (
         <div className="hint_default_2d">
           <div className="hint_part">
-            <span style={{ color: "#ffd5b3" }}>LMB | MB1 | RMB | MB2</span> - move cam.
+            <span style={{ color: "#ffd5b3" }}>ЛКМ | ПКМ</span> — перемещение камеры.
           </div>
 
           <div className="hint_part">
-            <span style={{ color: "#ffd5b3" }}>mouse scroll</span> - zoom
+            <span style={{ color: "#ffd5b3" }}>колесо мыши</span> — масштаб.
           </div>
         </div>
       )}
@@ -69,7 +69,7 @@ export default function Hints() {
       {model_cretion_state && (
         <div className="hint_creaton_state">
           <div className="hint_part">
-            <span style={{ color: "#ffd5b3" }}>LMB | MB1</span> - place obj.
+            <span style={{ color: "#ffd5b3" }}>ЛКМ | MB1</span> — поставить объект.
           </div>
           <div className="hint_part">
             <span style={{ color: "#ffd5b3" }}>Q | E</span> - rotate obj.

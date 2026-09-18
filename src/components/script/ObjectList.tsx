@@ -141,7 +141,7 @@ interface SearchBarProps {
 
 const SearchBar: React.FC<SearchBarProps> = ({ value, onChange }) => {
   return (
-    <SearchBarField className="search_bar" label="Search model..." type="search" value={value} onChange={onChange} />
+    <SearchBarField className="search_bar" label="Поиск объекта..." type="search" value={value} onChange={onChange} />
   );
 };
 

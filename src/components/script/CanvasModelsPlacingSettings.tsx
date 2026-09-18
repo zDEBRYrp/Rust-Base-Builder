@@ -74,7 +74,7 @@ export default function CanvasModelsPlacingSettings() {
     <div className="canvas_models_placing_settings_main_container">
       <div className="canvas_models_placing_settings_content_row">
         <div className="canvas_models_placing_settings_symmetry_container">
-          <div className="canvas_models_placing_settings_symmetry_container_description">symmetry:</div>
+          <div className="canvas_models_placing_settings_symmetry_container_description">симметрия:</div>
           <div className="canvas_models_placing_settings_symmetry_buttons_container">
             <div
               className={symmetry_x_enabled ? "canvas_models_placing_settings_symmetry_button canvas_models_placing_settings_symmetry_button_enabled canvas_models_placing_settings_button_left" : "canvas_models_placing_settings_symmetry_button canvas_models_placing_settings_symmetry_button_disabled canvas_models_placing_settings_button_left"} // prettier-ignore
@@ -91,7 +91,7 @@ export default function CanvasModelsPlacingSettings() {
           </div>
         </div>
         <div className="canvas_models_placing_settings_distance_units_container">
-          <div className="canvas_models_placing_settings_distance_units_description">distance unit:</div>
+          <div className="canvas_models_placing_settings_distance_units_description">шаг:</div>
           <div className="canvas_models_placing_settings_distance_units_buttons_container">
             <div
               className= {unit_distance_number === 0.125 ? "canvas_models_placing_settings_distance_units_button canvas_models_placing_settings_distance_units_button_enabled canvas_models_placing_settings_button_left" : "canvas_models_placing_settings_distance_units_button canvas_models_placing_settings_distance_units_button_disabled canvas_models_placing_settings_button_left"} // prettier-ignore
@@ -118,7 +118,7 @@ export default function CanvasModelsPlacingSettings() {
       </div>
       <div className="canvas_models_placing_settings_content_row">
         <div className="canvas_models_placing_settings_height_level_container">
-          <div className="canvas_models_placing_settings_height_level_description">build height:</div>
+          <div className="canvas_models_placing_settings_height_level_description">высота:</div>
           <div className="canvas_models_placing_settings_height_level_buttons_container">
             <div
               className="canvas_models_placing_settings_height_level_button canvas_models_placing_settings_button_left"
@@ -137,7 +137,7 @@ export default function CanvasModelsPlacingSettings() {
           </div>
         </div>
         <div className="canvas_models_placing_settings_pivot_controls_container">
-          <div className="canvas_models_placing_settings_pivot_controls_description">pivot controls:</div>
+          <div className="canvas_models_placing_settings_pivot_controls_description">оси:</div>
           <div className="canvas_models_placing_settings_pivot_controls_buttons_container">
             <div
               className= { pivot_controls_x_enabled ? "canvas_models_placing_settings_pivot_controls_button canvas_models_placing_settings_pivot_controls_button_enabled canvas_models_placing_settings_button_left" : "canvas_models_placing_settings_pivot_controls_button canvas_models_placing_settings_pivot_controls_button_disabled canvas_models_placing_settings_button_left"} //prettier-ignore

@@ -73,61 +73,61 @@ export default function StructureVisibilityMode() {
     <>
       {/* prettier-ignore */}
       <div className={`structure_visibility_main_container ${page_mode === "overview" ? "structure_visibility_main_container_overview_position" : page_mode === "edit" ? "structure_visibility_main_container_edit_position" : "structure_visibility_main_container_raid_position"}`}>
-        <div className="structure_visibility_description">3D Objects visibility</div>
+        <div className="structure_visibility_description">Видимость объектов</div>
         <div className="structure_visibility_buttons_container">
           <div className="structure_visibility_buttons_column">
             <div 
             className={!models_xray_active && page_mode === "edit" ? "structure_visibility_button structure_visibility_button_enabled" : "structure_visibility_button structure_visibility_button_disabled"}
             onClick={() => toggleSpecificModels(set_models_xray_active, models_xray_active)}>
-              xray ({canvas_models_array.length})
+                рентген ({canvas_models_array.length})
             </div>
           </div>
           <div className="structure_visibility_buttons_column">
             <div 
               className={foundations_active ? "structure_visibility_button structure_visibility_button_enabled" : "structure_visibility_button structure_visibility_button_disabled"} 
               onClick={() => toggleSpecificModels(set_foundations_active, foundations_active)}>
-                found. ({models_count.foundations_count})
+                фундаменты ({models_count.foundations_count})
               </div>
             <div 
               className={walls_active ? "structure_visibility_button structure_visibility_button_enabled" : "structure_visibility_button structure_visibility_button_disabled"}
               onClick={() => toggleSpecificModels(set_walls_active, walls_active)}>
-                walls ({models_count.walls_count})
+                стены ({models_count.walls_count})
               </div>
           </div>
           <div className="structure_visibility_buttons_column">
             <div 
               className={floors_active ? "structure_visibility_button structure_visibility_button_enabled" : "structure_visibility_button structure_visibility_button_disabled"}
               onClick={() => toggleSpecificModels(set_floors_active, floors_active)}>
-                floors ({models_count.floors_count})
+                полы ({models_count.floors_count})
               </div>
             <div 
               className={doors_active ? "structure_visibility_button structure_visibility_button_enabled" : "structure_visibility_button structure_visibility_button_disabled"}
               onClick={() => toggleSpecificModels(set_doors_active, doors_active)}>
-                doors ({models_count.doors_count})
+                двери ({models_count.doors_count})
               </div>
           </div>
           <div className="structure_visibility_buttons_column">
             <div 
               className={frames_active ? "structure_visibility_button structure_visibility_button_enabled" : "structure_visibility_button structure_visibility_button_disabled"}
               onClick={() => toggleSpecificModels(set_frames_active, frames_active)}>
-                frames ({models_count.frames_count})
+                каркасы ({models_count.frames_count})
               </div>
             <div 
               className={stairs_active ? "structure_visibility_button structure_visibility_button_enabled" : "structure_visibility_button structure_visibility_button_disabled"} 
               onClick={() => toggleSpecificModels(set_stairs_active, stairs_active)}>
-                stairs ({models_count.stairs_count})
+                лестницы ({models_count.stairs_count})
               </div>
           </div>
           <div className="structure_visibility_buttons_column">
             <div 
               className={roofs_active ? "structure_visibility_button structure_visibility_button_enabled" : "structure_visibility_button structure_visibility_button_disabled"}
               onClick={() => toggleSpecificModels(set_roofs_active, roofs_active)}>
-                roofs ({models_count.roofs_count})
+                крыши ({models_count.roofs_count})
                 </div>
             <div 
               className={miscs_active ? "structure_visibility_button structure_visibility_button_enabled" : "structure_visibility_button structure_visibility_button_disabled"}
               onClick={() => toggleSpecificModels(set_miscs_active, miscs_active)}>
-                miscs ({models_count.miscs_count})
+                прочее ({models_count.miscs_count})
               </div>
           </div>
         </div>
