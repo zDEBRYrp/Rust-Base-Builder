@@ -90,6 +90,7 @@ import { TextField } from "@mui/material";
 import { styled } from "@mui/material/styles";
 
 import { useAudioPlayer } from "./AudioPlayer.tsx";
+import { ruLabel } from "../../i18n";
 
 const SearchBarField = styled(TextField)({
   "& label.Mui-focused": {
@@ -159,6 +160,8 @@ export default function ObjectList() {
   const [hovered_object_list, set_hovered_object_list] = useState<number>(-1);
 
   const [search_querry, set_search_querry] = useState<string>("");
+  const [category, set_category] = useState<string>("all");
+  const [material, set_material] = useState<string>("all");
 
   //[SectionNav] object list creator
   //Section ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ ↓ Object List Creator + Keywords + Interaction ↓ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -319,11 +322,21 @@ export default function ObjectList() {
     create_object_list_item("furnace", furnaceThumbnail, object_list_keywords("furnace", "", "", ""), "Furnace"), // prettier-ignore
     create_object_list_item("workbench T3", workbench_t3_Thumbnail, object_list_keywords("workbench", "t3", "", ""), "WorkbenchT3"), // prettier-ignore
     create_object_list_item("sleeping bag", sleeping_bag_Thumbnail, object_list_keywords("sleeping", "bag", "", ""), "SleepingBag"), // prettier-ignore
+    create_object_list_item("shotgun trap", toolCupboardThumbnail, object_list_keywords("shotgun", "trap", "defense", ""), "ShotgunTrap"), // prettier-ignore
+    create_object_list_item("auto turret", metalVerticalEmbrasureThumbnail, object_list_keywords("auto", "turret", "defense", ""), "AutoTurret"), // prettier-ignore
+    create_object_list_item("flame turret", furnaceThumbnail, object_list_keywords("flame", "turret", "defense", ""), "FlameTurret"), // prettier-ignore
+    create_object_list_item("SAM site", metalVerticalEmbrasureThumbnail, object_list_keywords("sam", "site", "defense", ""), "SAMSite"), // prettier-ignore
+    create_object_list_item("vending machine", woodStorageBoxThumbnail, object_list_keywords("vending", "machine", "shop", ""), "VendingMachine"), // prettier-ignore
   ];
 
-  const filtered_object_list = object_list.filter((item) =>
-    item.keywords.some((keyword) => keyword.includes(search_querry.toLowerCase()))
-  );
+  const filtered_object_list = object_list.filter((item) => {
+    const queryMatch = item.keywords.some((keyword) => keyword.includes(search_querry.toLowerCase()));
+    const categoryMatch = category === "all" || item.keywords.includes(category) ||
+      (category === "misc" && ["tool", "storage", "furnace", "workbench", "sleeping", "defense", "trap", "turret"].some((word) => item.keywords.includes(word))) ||
+      (category === "window" && ["window", "embrasure"].some((word) => item.keywords.includes(word)));
+    const materialMatch = material === "all" || item.keywords.includes(material);
+    return queryMatch && categoryMatch && materialMatch;
+  });
 
   //prettier-ignore
   function ObjectListMouseClick(index: number, item: { name?: string; thumbnail?: string; keywords?: string[]; onClick: any }) {
@@ -388,6 +401,27 @@ export default function ObjectList() {
         className={page_mode === "edit" ? "object_list_main_container object_list_main_container_displayed" : "object_list_main_container object_list_main_container_hidden"} //prettier-ignore
       >
         <SearchBar value={search_querry} onChange={(event: any) => set_search_querry(event.target.value)} />
+        <div className="object_list_filters">
+          <select aria-label="Категория" value={category} onChange={(event) => set_category(event.target.value)}>
+            <option value="all">Все категории</option>
+            <option value="foundation">Фундаменты</option>
+            <option value="wall">Стены</option>
+            <option value="floor">Полы</option>
+            <option value="roof">Крыши</option>
+            <option value="door">Двери</option>
+            <option value="window">Окна и бойницы</option>
+            <option value="stairs">Лестницы</option>
+            <option value="misc">Модули и предметы</option>
+          </select>
+          <select aria-label="Материал" value={material} onChange={(event) => set_material(event.target.value)}>
+            <option value="all">Все материалы</option>
+            <option value="stone">Камень</option>
+            <option value="metal">Металл</option>
+            <option value="armored">ВМК</option>
+            <option value="wood" disabled>Дерево (модели ещё не добавлены)</option>
+            <option value="straw" disabled>Солома (модели ещё не добавлены)</option>
+          </select>
+        </div>
         <div className="object_list">
           {filtered_object_list.map((item, index) => (
             <button
@@ -403,7 +437,7 @@ export default function ObjectList() {
                 src={item.thumbnail}
                 alt={`${item.name} thumbnail`}
               />
-              <span className="object_list_entity_description">{item.name}</span>
+              <span className="object_list_entity_description">{ruLabel(item.name)}</span>
             </button>
           ))}
         </div>

@@ -118,6 +118,7 @@ export function GhostModel({
       case "Furnace": return furnace_nodes.Cube.geometry;
       case "WorkbenchT3": return workbench_t3_nodes.Cube.geometry;
       case "SleepingBag": return sleeping_bag_nodes.Cube.geometry;
+      case "ShotgunTrap": case "AutoTurret": case "FlameTurret": case "SAMSite": case "VendingMachine": return foundation_square_low_nodes.Cube.geometry;
 
       case "PrebuildBaseI": return starter_base_2x1_prop_nodes.Cube.geometry;
       case "PrebuildBaseII": return chad_cube_prop_nodes.Cube.geometry;

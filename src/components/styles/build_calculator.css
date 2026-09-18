@@ -35,6 +35,23 @@ input[type="checkbox"] {
   height: 30%;
 }
 
+.upkeep_interval_control {
+  color: #ddd;
+  font-size: 0.75rem;
+  padding: 0 0.5rem 0.4rem;
+}
+
+.upkeep_interval_control select {
+  color: #eee;
+  background: #282828;
+  border: 1px solid #777;
+  border-radius: 3px;
+  padding: 0.2rem;
+}
+
+.custom_upkeep_interval { display: inline-flex; gap: 0.25rem; margin-left: 0.35rem; }
+.custom_upkeep_interval input, .custom_upkeep_interval select { width: 4.5rem; }
+
 .component_cost_content {
   height: 30%;
 }

@@ -77,6 +77,23 @@ input[type="search"]::-webkit-search-cancel-button {
   padding: 0 0.5vh;
 }
 
+.object_list_filters {
+  display: flex;
+  gap: 0.35rem;
+  padding: 0.35rem 0.5rem;
+}
+
+.object_list_filters select {
+  min-width: 0;
+  flex: 1;
+  color: #ddd;
+  background: #282828;
+  border: 1px solid #666;
+  border-radius: 3px;
+  padding: 0.25rem;
+  font-size: 0.72rem;
+}
+
 .object_list_entity {
   height: 110%;
   width: 97.5%;

@@ -34,7 +34,10 @@ export default function ResourceCounter() {
   const [stone_upkeep_cost, set_stone_upkeep_cost] = useState<number>(0);
   const [metal_upkeep_cost, set_metal_upkeep_cost] = useState<number>(0);
   const [hqm_upkeep_cost, set_hqm_upkeep_cost] = useState<number>(0);
-  const [upkeep_cost_text, set_upkeep_cost_text] = useState<string>("");
+  const [upkeep_interval_hours, set_upkeep_interval_hours] = useState<number>(24);
+  const [custom_interval_value, set_custom_interval_value] = useState<number>(1);
+  const [custom_interval_unit, set_custom_interval_unit] = useState<"hours" | "days" | "weeks">("days");
+  const [custom_interval_mode, set_custom_interval_mode] = useState(false);
 
   const [count_miscs_cost, set_count_miscs_cost] = useState<boolean>(false);
   const [total_misc_count, set_total_misc_count] = useState<number>(0);
@@ -63,10 +66,11 @@ export default function ResourceCounter() {
     let misc_furnace_count = models.filter((model) => model === "Furnace").length;
     let misc_workbench_t3_count = models.filter((model) => model === "WorkbenchT3").length;
     let misc_sleeping_bag_count = models.filter((model) => model === "SleepingBag").length;
+    let defense_module_count = models.filter((model) => ["ShotgunTrap", "AutoTurret", "FlameTurret", "SAMSite", "VendingMachine"].includes(model)).length;
 
     let garage_door_count = models.filter((model) => model === "GarageDoor").length;
 
-    set_total_misc_count(misc_tool_cupboard_count + misc_wood_storage_box_count + misc_large_wood_box_count + misc_furnace_count + misc_workbench_t3_count + misc_sleeping_bag_count + garage_door_count) //prettier-ignore
+    set_total_misc_count(misc_tool_cupboard_count + misc_wood_storage_box_count + misc_large_wood_box_count + misc_furnace_count + misc_workbench_t3_count + misc_sleeping_bag_count + garage_door_count + defense_module_count) //prettier-ignore
 
     //SubSection ───────────────────────── ↓ Counter 2.Misc Cost ↓ ─────────────────────────
     //% -------------------------  total misc cost (wood) -------------------------
@@ -342,7 +346,6 @@ export default function ResourceCounter() {
       stage_0_count_rampup = 0.1;
 
       set_total_upkeep_percentile_rampup(parseFloat(stage_0_count_rampup.toFixed(4)));
-      set_upkeep_cost_text("upkeep cost");
     }
 
     //% -------------------------  stage 1 -------------------------
@@ -353,7 +356,6 @@ export default function ResourceCounter() {
 
       stage_1_count_rampup = (stage_0_count * 0.1 + stage_1_count * 0.15) / total_object_count //prettier-ignore
       set_total_upkeep_percentile_rampup(parseFloat(stage_1_count_rampup.toFixed(4)));
-      set_upkeep_cost_text("upkeep cost (estimated scaling)");
     }
 
     //% -------------------------  stage 2 -------------------------
@@ -365,7 +367,6 @@ export default function ResourceCounter() {
 
       stage_2_count_rampup = (stage_0_count * 0.1 + stage_1_count * 0.15 + stage_2_count * 0.2) / total_object_count //prettier-ignore
       set_total_upkeep_percentile_rampup(parseFloat(stage_2_count_rampup.toFixed(4)));
-      set_upkeep_cost_text("upkeep cost (estimated scaling)");
     }
 
     //% -------------------------  stage 3 -------------------------
@@ -378,7 +379,6 @@ export default function ResourceCounter() {
 
       stage_3_count_rampup = (stage_0_count * 0.1 + stage_1_count * 0.15 + stage_2_count * 0.2 + stage_3_count * 0.33) / total_object_count //prettier-ignore
       set_total_upkeep_percentile_rampup(parseFloat(stage_3_count_rampup.toFixed(4)));
-      set_upkeep_cost_text("upkeep cost (estimated scaling)");
     }
   }
 
@@ -436,6 +436,9 @@ export default function ResourceCounter() {
     playSound("buttons_sound");
   };
 
+  const upkeepIntervalLabel = custom_interval_mode ? `${custom_interval_value} ${custom_interval_unit === "hours" ? "ч." : custom_interval_unit === "days" ? "дн." : "нед."}` : upkeep_interval_hours === 1 ? "час" : upkeep_interval_hours === 24 ? "день" : upkeep_interval_hours === 240 ? "10 дней" : `${upkeep_interval_hours} ч`;
+  const upkeepScale = upkeep_interval_hours / 24;
+
   useEffect(() => {
     CountBuildCost(canvas_models_array);
     CountMiscsAndComponentsCost(canvas_models_array);
@@ -452,11 +455,11 @@ export default function ResourceCounter() {
     <>
       <div className="build_calculator_main_container">
         <section className="build_cost_main_container">
-          <h2 className="build_cost_title">build cost</h2>
+          <h2 className="build_cost_title">стоимость строительства</h2>
           <h2 className="build_cost_misc_button">
             <label>
               <input type="checkbox" checked={count_miscs_cost} onChange={HandleMiscCostState} />
-              count miscs (TC, WB, Box, Furnace ... )
+              учитывать предметы (шкаф, верстак, ящики, печи…)
             </label>
           </h2>
 
@@ -470,19 +473,51 @@ export default function ResourceCounter() {
 
         <section className="upkeep_cost_main_container">
           <h2 className="upkeep_cost_title">
-            {upkeep_cost_text} {(total_upkeep_percentile_rampup * 100).toFixed(2)}%
+            содержание / расход шкафа за {upkeepIntervalLabel} {(total_upkeep_percentile_rampup * 100).toFixed(2)}%
           </h2>
 
+          <div className="upkeep_interval_control">
+            <label>Показывать расход за:&nbsp;
+              <select value={custom_interval_mode ? -1 : upkeep_interval_hours} onChange={(event) => {
+                const value = Number(event.target.value);
+                set_custom_interval_mode(value === -1);
+                if (value !== -1) set_upkeep_interval_hours(value);
+              }}>
+                <option value={1}>1 час</option>
+                <option value={24}>1 день</option>
+                <option value={168}>7 дней</option>
+                <option value={240}>10 дней</option>
+                <option value={-1}>свой период</option>
+              </select>
+            </label>
+            {custom_interval_mode && (
+              <span className="custom_upkeep_interval">
+                <input type="number" min={1} value={custom_interval_value} onChange={(event) => {
+                  const value = Math.max(1, Number(event.target.value) || 1);
+                  set_custom_interval_value(value);
+                  set_upkeep_interval_hours(value * (custom_interval_unit === "hours" ? 1 : custom_interval_unit === "days" ? 24 : 168));
+                }} />
+                <select value={custom_interval_unit} onChange={(event) => {
+                  const unit = event.target.value as "hours" | "days" | "weeks";
+                  set_custom_interval_unit(unit);
+                  set_upkeep_interval_hours(custom_interval_value * (unit === "hours" ? 1 : unit === "days" ? 24 : 168));
+                }}>
+                  <option value="hours">часов</option><option value="days">дней</option><option value="weeks">недель</option>
+                </select>
+              </span>
+            )}
+          </div>
+
           <div className="upkeep_cost_content_container">
-            {CreateBuildCostSegment(woodThumbnail, "wood", Number(wood_upkeep_cost.toFixed(0)))}
-            {CreateBuildCostSegment(stoneThumbnail, "stone", Number(stone_upkeep_cost.toFixed(0)))}
-            {CreateBuildCostSegment(metalThumbnail, "metal", Number(metal_upkeep_cost.toFixed(0)))}
-            {CreateBuildCostSegment(hqMetalThumbnail, "armored", Number(hqm_upkeep_cost.toFixed(0)))}
+            {CreateBuildCostSegment(woodThumbnail, "дерево", Number((wood_upkeep_cost * upkeepScale).toFixed(0)))}
+            {CreateBuildCostSegment(stoneThumbnail, "камень", Number((stone_upkeep_cost * upkeepScale).toFixed(0)))}
+            {CreateBuildCostSegment(metalThumbnail, "металл", Number((metal_upkeep_cost * upkeepScale).toFixed(0)))}
+            {CreateBuildCostSegment(hqMetalThumbnail, "ВМК", Number((hqm_upkeep_cost * upkeepScale).toFixed(0)))}
           </div>
         </section>
 
         <section className="component_cost_content">
-          <h2 className="components_cost_title">components cost</h2>
+          <h2 className="components_cost_title">стоимость компонентов</h2>
 
           <div className="components_cost_content_container">
             {CreateBuildCostSegment(scrapThumbnail, "scrap", Number(components_cost[0].scrap))}

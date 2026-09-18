@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { FileUpload } from "primereact/fileupload";
 
 import pako from "pako";
+import { AI_BASE_PROMPT, parseBaseDocument, stringifyBaseDocument } from "../../domain/baseFormat";
 
 import ProgressBar from "react-bootstrap/ProgressBar";
 
@@ -43,12 +44,12 @@ const TransferModelsData: React.FC<TransferModelsDataProps> = ({ canvas_models_d
   //Section ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ ↓ Data Transfer (Import + Export) ↓ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
   function ExportCanvasModelsDataFile() {
-    const blob = new Blob([compressed_data], { type: "text/plain" });
+    const blob = new Blob([compressed_data], { type: "application/json" });
     const url = window.URL.createObjectURL(blob);
 
     const a = document.createElement("a");
     a.href = url;
-    a.download = `${base_export_custom_file_name}.txt`;
+    a.download = `${base_export_custom_file_name}.json`;
     a.click();
     window.URL.revokeObjectURL(url);
     set_compressed_data("");
@@ -59,7 +60,7 @@ const TransferModelsData: React.FC<TransferModelsDataProps> = ({ canvas_models_d
 
     set_loading_bar_info("Base imported");
 
-    if (file && file.type === "text/plain") {
+    if (file && (file.type === "text/plain" || file.type === "application/json" || /\.(txt|json)$/i.test(file.name))) {
       const reader = new FileReader();
       set_imported_file_name(file.name);
       set_imported_file_size(file.size);
@@ -71,7 +72,7 @@ const TransferModelsData: React.FC<TransferModelsDataProps> = ({ canvas_models_d
           const imported_file_content = target.result as string;
 
           try {
-            set_decompressed_data(Base64DataDecompress(imported_file_content));
+            set_decompressed_data(ParseImportedData(imported_file_content));
           } catch (error) {
             console.error("Error decompressing or parsing the file content", error);
           }
@@ -92,16 +93,14 @@ const TransferModelsData: React.FC<TransferModelsDataProps> = ({ canvas_models_d
   //Section ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ ↓ Base64 compression + deflate ↓ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
   function Base64DataCompression(type: string) {
-    const data_string = JSON.stringify(canvas_models_data, null, 2);
-    const compressed_data_string = pako.deflate(data_string);
-    const compressedBase64 = btoa(String.fromCharCode(...compressed_data_string));
+    const readableData = stringifyBaseDocument(canvas_models_data, base_export_custom_file_name, "Экспорт из Rust Base Builder");
 
     playSound("buttons_sound");
     if (type === "export") {
-      set_compressed_data(compressedBase64);
+      set_compressed_data(readableData);
       set_loading_bar_info("Base downloaded");
     } else if (type === "code") {
-      set_export_base_code(compressedBase64);
+      set_export_base_code(readableData);
       set_loading_bar_info("Base code generated");
     }
   }
@@ -112,6 +111,12 @@ const TransferModelsData: React.FC<TransferModelsDataProps> = ({ canvas_models_d
     const decompressed_data_string = JSON.parse(decompressed);
 
     return decompressed_data_string;
+  }
+
+  function ParseImportedData(data: string) {
+    const trimmed = data.trim();
+    if (trimmed.startsWith("{")) return parseBaseDocument(trimmed);
+    return Base64DataDecompress(trimmed);
   }
 
   //[SectionNav] remove file, buttons toggle, data interaction
@@ -187,7 +192,7 @@ const TransferModelsData: React.FC<TransferModelsDataProps> = ({ canvas_models_d
     set_decompressed_data("");
     dispatch(set_prebuilt_base_objects_set([]));
     playSound("buttons_sound");
-    set_decompressed_data(Base64DataDecompress(base_code_import_value));
+    set_decompressed_data(ParseImportedData(base_code_import_value));
     set_loading_bar_info("Base code applied");
   }
 
@@ -206,6 +211,12 @@ const TransferModelsData: React.FC<TransferModelsDataProps> = ({ canvas_models_d
   function ClearGeneratedBaseCode() {
     set_export_base_code("");
     set_loading_bar_info("Base code cleared");
+    playSound("buttons_sound");
+  }
+
+  function CopyAiPrompt() {
+    navigator.clipboard.writeText(AI_BASE_PROMPT);
+    set_loading_bar_info("Промпт для ИИ скопирован");
     playSound("buttons_sound");
   }
 
@@ -254,7 +265,7 @@ const TransferModelsData: React.FC<TransferModelsDataProps> = ({ canvas_models_d
               className={transfer_models_data_mode === "import" ? "transfer_models_data_button transfer_models_data_button_enabled" : "transfer_models_data_button transfer_models_data_button_disabled"} //prettier-ignore
               onClick={() => {HandleTransferModelsDataModeSwitch("import")}} //prettier-ignore
             >
-              <div className="transfer_models_data_button_description">import</div>
+              <div className="transfer_models_data_button_description">импорт</div>
               <div className="transfer_models_data_button_icon">
                 <FontAwesomeIcon icon={faDownload} style={{ width: "70%", height: "70%" }} />
               </div>
@@ -263,7 +274,7 @@ const TransferModelsData: React.FC<TransferModelsDataProps> = ({ canvas_models_d
               className={transfer_models_data_mode === "export" ? "transfer_models_data_button transfer_models_data_button_enabled" : "transfer_models_data_button transfer_models_data_button_disabled"} //prettier-ignore
               onClick={() => {HandleTransferModelsDataModeSwitch("export")}} //prettier-ignore
             >
-              <div className="transfer_models_data_button_description">export</div>
+              <div className="transfer_models_data_button_description">экспорт</div>
               <div className="transfer_models_data_button_icon">
                 <FontAwesomeIcon icon={faUpload} style={{ width: "70%", height: "70%" }} />
               </div>
@@ -275,7 +286,7 @@ const TransferModelsData: React.FC<TransferModelsDataProps> = ({ canvas_models_d
               className={transfer_models_data_type === "code" ? "transfer_models_data_button transfer_models_data_button_enabled" : "transfer_models_data_button transfer_models_data_button_disabled"} //prettier-ignore
               onClick={() => {HandleTransferModelsDataTypeSwitch("code")}} //prettier-ignore
             >
-              <div className="transfer_models_data_button_description">via code</div>
+              <div className="transfer_models_data_button_description">JSON / код</div>
               <div className="transfer_models_data_button_icon">
                 <FontAwesomeIcon icon={faKeyboard} style={{ width: "90%", height: "90%" }} />
               </div>
@@ -284,7 +295,7 @@ const TransferModelsData: React.FC<TransferModelsDataProps> = ({ canvas_models_d
               className={transfer_models_data_type === "file" ? "transfer_models_data_button transfer_models_data_button_enabled" : "transfer_models_data_button transfer_models_data_button_disabled"} //prettier-ignore
               onClick={() => {HandleTransferModelsDataTypeSwitch("file")}} //prettier-ignore
             >
-              <div className="transfer_models_data_button_description">via .txt file</div>
+              <div className="transfer_models_data_button_description">JSON-файл</div>
               <div className="transfer_models_data_button_icon">
                 <FontAwesomeIcon icon={faFile} style={{ width: "60%", height: "60%" }} />
               </div>
@@ -298,7 +309,7 @@ const TransferModelsData: React.FC<TransferModelsDataProps> = ({ canvas_models_d
           <>
             {/* prettier-ignore */}
             <div className="transfer_models_data_import_via_code_container">
-              <input className="transfer_models_data_import_via_code_container_input" type="text" value={base_code_import_value} onChange={HandleBaseCodeImportValueChange} placeholder="Enter / paste the base code"/>
+              <textarea className="transfer_models_data_import_via_code_container_input" value={base_code_import_value} onChange={HandleBaseCodeImportValueChange} placeholder="Вставьте читаемый JSON базы или старый код" rows={5}/>
             </div>
 
             <div className="transfer_models_data_code_buttons_container">
@@ -306,7 +317,7 @@ const TransferModelsData: React.FC<TransferModelsDataProps> = ({ canvas_models_d
                 onClick={() => {ApplyImportedBaseCode()}} //prettier-ignore
                 className="transfer_models_data_code_button"
               >
-                <div className="transfer_models_data_code_button_description">apply</div>
+                <div className="transfer_models_data_code_button_description">применить</div>
                 <div className="transfer_models_data_code_button_icon">
                   <FontAwesomeIcon icon={faCheck} style={{ width: "65%", height: "65%" }} />
                 </div>
@@ -316,7 +327,7 @@ const TransferModelsData: React.FC<TransferModelsDataProps> = ({ canvas_models_d
                 onClick={() => {ClearImportedBaseCode()}} //prettier-ignore
                 className="transfer_models_data_code_button"
               >
-                <div className="transfer_models_data_code_button_description">clear</div>
+                <div className="transfer_models_data_code_button_description">очистить</div>
                 <div className="transfer_models_data_code_button_icon">
                   <FontAwesomeIcon icon={faEraser} style={{ width: "75%", height: "75%" }} />
                 </div>
@@ -329,19 +340,19 @@ const TransferModelsData: React.FC<TransferModelsDataProps> = ({ canvas_models_d
           <>
             {/* prettier-ignore */}
             <div className="transfer_models_data_import_remove_file_container">
-              <FileUpload className="file_upload_container" ref={fileUploadRef} mode="advanced" name="demo[]" accept=".txt" maxFileSize={1000000} customUpload uploadHandler={ImportCanvasModelsDataFile} auto chooseLabel="Import base file"/>
+              <FileUpload className="file_upload_container" ref={fileUploadRef} mode="advanced" name="demo[]" accept=".txt,.json" maxFileSize={1000000} customUpload uploadHandler={ImportCanvasModelsDataFile} auto chooseLabel="Импортировать JSON"/>
               <button
                 className={imported_file_size ? "file_upload_container_remove_button" : "file_upload_container_remove_button file_upload_container_remove_button_disabled"} //prettier-ignore
                 onClick={removeFile}
               >
-                Remove File
+                Удалить файл
               </button>
             </div>
             <div className="file_upload_container_text">
-              {imported_file_name ? `File: ${imported_file_name}` : "file name: empty"}
+              {imported_file_name ? `Файл: ${imported_file_name}` : "Файл не выбран"}
             </div>
             <div className="file_upload_container_text">
-              {imported_file_size ? `Size: ${(imported_file_size / 1024).toFixed(2)} KB ` : "file size: empty"}
+              {imported_file_size ? `Размер: ${(imported_file_size / 1024).toFixed(2)} КБ ` : "Размер: —"}
             </div>
           </>
         )}
@@ -352,7 +363,7 @@ const TransferModelsData: React.FC<TransferModelsDataProps> = ({ canvas_models_d
               onClick={() => {ToggleBasePlacing(), playSound("menu_sound")}} // prettier-ignore
               className={enable_base_placing ? "transfer_models_data_base_place_button transfer_models_data_base_place_button_enabled" : "transfer_models_data_base_place_button transfer_models_data_base_place_button_disabled"} //prettier-ignore
             >
-              place the base {enable_base_placing ? "(on)" : "(off)"}
+              разместить базу {enable_base_placing ? "(вкл.)" : "(выкл.)"}
             </div>
           </div>
         )}
@@ -364,21 +375,24 @@ const TransferModelsData: React.FC<TransferModelsDataProps> = ({ canvas_models_d
                 onClick={() => {Base64DataCompression("code")}} // prettier-ignore
                 className={enable_base_placing ? "transfer_models_data_generate_base_code_button transfer_models_data_generate_base_code_button_enabled" : "transfer_models_data_generate_base_code_button transfer_models_data_generate_base_code_button_disabled"} //prettier-ignore
               >
-                generate the base code
+                сгенерировать JSON базы
               </div>
             </div>
 
             {/* prettier-ignore */}
             <div className="transfer_models_data_import_via_code_container">
-              <input className="transfer_models_data_import_via_code_container_input" ref={inputRef} type="text" value={export_base_code} readOnly placeholder="generated code"/>
+              <textarea className="transfer_models_data_import_via_code_container_input" ref={inputRef} value={export_base_code} readOnly placeholder="сгенерированный JSON" rows={8}/>
             </div>
+
+            <div className="transfer_models_data_file_download_info">JSON читается человеком и ИИ. Можно попросить ИИ создать базу по формату приложения.</div>
+            <div onClick={CopyAiPrompt} className="transfer_models_data_generate_base_code_button transfer_models_data_generate_base_code_button_enabled">скопировать промпт для ИИ</div>
 
             <div className="transfer_models_data_code_buttons_container">
               <div
                 onClick={() => {CopyGeneratedBaseCode()}} //prettier-ignore
                 className="transfer_models_data_code_button"
               >
-                <div className="transfer_models_data_code_button_description">copy</div>
+                <div className="transfer_models_data_code_button_description">копировать</div>
                 <div className="transfer_models_data_code_button_icon">
                   <FontAwesomeIcon icon={faCopy} style={{ width: "65%", height: "65%" }} />
                 </div>
@@ -388,7 +402,7 @@ const TransferModelsData: React.FC<TransferModelsDataProps> = ({ canvas_models_d
                 onClick={() => {ClearGeneratedBaseCode()}} //prettier-ignore
                 className="transfer_models_data_code_button"
               >
-                <div className="transfer_models_data_code_button_description">clear</div>
+                <div className="transfer_models_data_code_button_description">очистить</div>
                 <div className="transfer_models_data_code_button_icon">
                   <FontAwesomeIcon icon={faEraser} style={{ width: "75%", height: "75%" }} />
                 </div>
@@ -408,7 +422,7 @@ const TransferModelsData: React.FC<TransferModelsDataProps> = ({ canvas_models_d
               onClick={() => {Base64DataCompression("export")}} //prettier-ignore
               className="transfer_models_data_file_download_button"
             >
-              download the base <br /> .txt file
+              скачать базу <br /> .json файл
             </div>
 
             <div className="transfer_models_data_file_download_info">

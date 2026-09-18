@@ -90,6 +90,7 @@ import { Model as LargeWoodBox } from "./../models/misc/LargeWoodBox.tsx";
 import { Model as Furnace } from "./../models/misc/Furnace.tsx";
 import { Model as WorkbenchT3 } from "./../models/misc/WorkbenchT3.tsx";
 import { Model as SleepingBag } from "./../models/misc/SleepingBag.tsx";
+import { ShotgunTrap, AutoTurret, FlameTurret, SAMSite, VendingMachine } from "./../models/misc/DefenseModule.tsx";
 
 import { GhostModel as GhostModel } from "./GhostModels.tsx";
 
@@ -295,6 +296,11 @@ export default function CanvasContainer() {
     Furnace: Furnace,
     WorkbenchT3: WorkbenchT3,
     SleepingBag: SleepingBag,
+    ShotgunTrap: ShotgunTrap,
+    AutoTurret: AutoTurret,
+    FlameTurret: FlameTurret,
+    SAMSite: SAMSite,
+    VendingMachine: VendingMachine,
   };
 
   //[SectionNav] canvas, interaction, data, canvas click, canvas pointer, mouse drag, pivot drag, local storage, symmetry
