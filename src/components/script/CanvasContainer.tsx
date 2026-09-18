@@ -1253,7 +1253,8 @@ export default function CanvasContainer() {
                 ref={perspectiveCameraControlsRef}
                 maxPolarAngle={Math.PI / 2.1}
                 enabled={camera_rotation}
-                mouseButtons={{ left: 1, right: 2, middle: 0, wheel: 8 }}
+                // В 3D-режиме колесо меняет масштаб камеры, а не сдвигает её вперёд/назад.
+                mouseButtons={{ left: 1, right: 2, middle: 0, wheel: 16 }}
               />
             </>
           )}
